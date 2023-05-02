@@ -5,6 +5,7 @@
 # "Best school" for other iterations
 
 counter = 0
+
 while [ $counter -lt 10]
 	if [ $counter -eq 3]
 	then
