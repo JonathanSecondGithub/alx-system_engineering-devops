@@ -1,4 +1,5 @@
 `QUESTION 0`
+
 `EXPLANATION`
 1. The user types the domain name www.foobar.com into the web browser
 2. The browser then sends a request to the router
@@ -21,6 +22,7 @@ The DNS server implements the A record type and maps the domain name www.foobar.
 
 
 `QUESTION 1`
+
 `EXPLANATIONS`
 The current web architecture implementation shows 3 servers ie two are active while on one is passive. In this case the 2 active servers can be used for fault tolerance and distribution of load to ensure operations take place twice as fast.
 
@@ -43,6 +45,7 @@ When a write operation is performed on the master database server, the change is
 
 
 `QUESTION 2`
+
 `EXPLANATIONS`
 Firewalls: Firewalls are basically used to filter incoming and outgoing traffic. One firewall on the load balancer filters traffic to and from the web server and the users repectively. Each active server also has a firewall to filter traffic and ensure no malicious programs make it ot the server or unauthorized access.
 SSL certificate: An SSL certificate, also known as a Secure Sockets Layer certificate, is a digital certificate that authenticates the identity of a website and encrypts the traffic between the website and the user's browser. SSL certificates are used to protect sensitive information such as credit card numbers and passwords.
@@ -68,7 +71,8 @@ Increased security risks
 It is also difficult to maintain because a database error may be in any server as compared to a dedicated server where troubleshooting can be done easily.
 
 `QUESTION 3`
-EXPLANATIONS
+
+`EXPLANATIONS`
 Each of the components now has a dedicated server and this enables efficient scalability of the web architecture and easy monitoring of the resources.
 
 Load balancers configured as a cluster work by distributing traffic across multiple load balancers. This helps to improve performance and reliability by preventing any single load balancer from becoming overloaded.
