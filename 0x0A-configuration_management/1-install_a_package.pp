@@ -1,4 +1,5 @@
 #Install a package
 package { 'flask':
-  ensure => 'installed',
+  ensure   => 'installed',
+  provider => 'pip3',
 }
