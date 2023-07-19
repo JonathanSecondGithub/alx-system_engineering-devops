@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Step 1: Create a new user named "nginx" if it doesn't exist
+if ! id -u nginx &>/dev/null; then
+    useradd -r -s /sbin/nologin nginx
+fi
+
+# Step 2: Install nginx if it's not already installed (assumes it's already installed in the image)
+# Uncomment the following lines if you want to install nginx from a package manager
+# apt-get update
+# apt-get install -y nginx
+
+# Step 3: Configure nginx to listen on all active IPs on port 8080
+config_file="/etc/nginx/sites-available/default"
+
+if [[ -f "$config_file" ]]; then
+    # Update the configuration file to listen on port 8080 and all IPs (0.0.0.0)
+    sed -i '/listen \[::\]:80 default_server/ a \    listen 0.0.0.0:8080;' "$config_file"
+else
+    # If the configuration file doesn't exist, create a new one
+    echo "
+server {
+    listen 0.0.0.0:8080;
+    server_name _;
+    location / {
+        # Your other nginx configurations go here
+    }
+}" > "$config_file"
+fi
+
+# Step 4: Ensure that nginx is running as the "nginx" user
+chown -R nginx:nginx /var/lib/nginx  # Change ownership of nginx directories
+sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf  # Update nginx.conf
+
