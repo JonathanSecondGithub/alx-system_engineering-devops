@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
+#Bash script to configure nginx to be listening on all active IPs on port 8080
 
-# Step 1: Create a new user named "nginx" if it doesn't exist
 if ! id -u nginx &>/dev/null; then
     useradd -r -s /sbin/nologin nginx
 fi
-
-# Step 2: Install nginx if it's not already installed (assumes it's already installed in the image)
-# Uncomment the following lines if you want to install nginx from a package manager
-# apt-get update
-# apt-get install -y nginx
 
 # Step 3: Configure nginx to listen on all active IPs on port 8080
 config_file="/etc/nginx/sites-available/default"
