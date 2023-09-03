@@ -1,41 +1,25 @@
 global
-    log     /dev/log local0
-    maxconn 2048
-    user    haproxy
-    group   haproxy
-    tune.ssl.default-dh-param 2048
+    log /dev/log    local0
+    log /dev/log    local1 notice
+    user haproxy
+    group haproxy
 
 defaults
-    log     global
+    log global
     mode    http
     option  httplog
     option  dontlognull
-    retries 3
-    option  redispatch
-    timeout connect  5000
-    timeout client  10000
-    timeout server  10000
-    option  forwardfor
-    option  http-server-close
-
-frontend www-http
-    bind   0.0.0.0:80
-    reqadd X-Forwarded-Proto:\ http
-    default_backend www-backend
-    redirect scheme https code 301 if !{ ssl_fc }
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
 
 frontend www-https
-    bind   0.0.0.0:443 ssl crt /etc/haproxy/certs/www.bdbnb.site.pem
+    bind *:443 ssl crt /etc/letsencrypt/live/example.com/fullchain.pem
     reqadd X-Forwarded-Proto:\ https
-    acl    letsencrypt-acl path_beg /.well-known/acme-challenge/
-    use_backend letsencrypt-backend if letsencrypt-acl
-    default_backend www-backend
+    acl www-ssl req.ssl_sni -i www.example.com
+    use_backend www-backend if www-ssl
 
 backend www-backend
-    balance  roundrobin
-    redirect scheme https if !{ ssl_fc }
-    server 1733-web-01 	3.235.21.36:80 check
-    server 1733-web-02 3.83.35.54:80 check
+    server web-server <your-web-server-IP>:<your-web-server-port> check
 
-backend letsencrypt-backend
-    server letsencrypt 127.0.0.1:54321
+# Add any additional HAProxy configuration here if needed
