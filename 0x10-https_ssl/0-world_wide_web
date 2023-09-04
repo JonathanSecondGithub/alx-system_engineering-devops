@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Function to fetch DNS record and display information
 function get_record() {
     local domain="$1"
