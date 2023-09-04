@@ -7,7 +7,7 @@ function get_record() {
     # Use dig to get the DNS A record for the subdomain
     local result=$(dig +short "$subdomain.$domain" A)
 
-    echo "The subdomain $subdomain is an A record and points to $result"
+    echo "The subdomain $subdomain is a A record and points to $result"
 }
 
 # If only domain parameter is provided, get records for default subdomains
