@@ -7,12 +7,6 @@ function get_record() {
     # Use dig to get the DNS A record for the subdomain
     local result=$(dig +short "$subdomain.$domain" A)
 
-    # Check if result is empty
-    if [[ -z "$result" ]]; then
-        echo "No record found for subdomain $subdomain.$domain"
-        return
-    fi
-
     echo "The subdomain $subdomain is an A record and points to $result"
 }
 
