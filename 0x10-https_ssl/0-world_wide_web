@@ -16,12 +16,6 @@ function get_record() {
     echo "The subdomain $subdomain is an A record and points to $result"
 }
 
-# Check for the mandatory domain parameter
-if [[ -z "$1" ]]; then
-    echo "Please provide a domain name."
-    exit 1
-fi
-
 # If only domain parameter is provided, get records for default subdomains
 if [[ -z "$2" ]]; then
     for sub in "www" "lb-01" "web-01" "web-02"; do
